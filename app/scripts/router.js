@@ -6,13 +6,15 @@ var parse = require('./setup');
 
 var LoginContainer = require('./components/login.jsx').LoginContainer;
 var RecipeContainer = require('./components/recipe.jsx').RecipeContainer;
+var MainContainer = require('./components/main.jsx').MainContainer;
 
 var User = require('./models/user').User;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
     '': 'login',
-    'recipe/': 'recipe'
+    'recipe/': 'recipe',
+    'main': 'main'
   },
   initialize: function(){
     parse.setup({
@@ -28,6 +30,12 @@ var AppRouter = Backbone.Router.extend({
   recipe: function(){
     ReactDOM.render(
       React.createElement(RecipeContainer),
+      document.getElementById('app')
+    )
+  },
+  main: function(){
+    ReactDOM.render(
+      React.createElement(MainContainer),
       document.getElementById('app')
     )
   }

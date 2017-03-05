@@ -2,11 +2,16 @@ var React = require('react');
 var recipe = require('../models/recipe.js');
 var IngredientCollection = require('../models/ingredient.js').IngredientCollection;
 
-class RecipeContainer extends React.Component {
+class RecipeCardContainer extends React.Component {
   constructor(props){
     super(props);
     var ingredientList = new IngredientCollection();
-
+    ingredientList.add([
+      {name: 'flour', units: 'cup', unitQuantity: 2},
+      {name: 'sugar', units: 'cup', unitQuantity: 1/2},
+      {name: 'salt', units: 'tsp', unitQuantity: 1},
+      {name: 'soymilk', units: 'cup', unitQuantity: 1}
+    ])
     ingredientList.fetch().then(()=> {
       this.setState({ingredientList});
     });
@@ -16,34 +21,21 @@ class RecipeContainer extends React.Component {
   }
   render(){
     return (
-      <div className="container">
-        <div className="col-md-12">
-          <div className="row">
-            <div className="header">
-              <span>The kitchen is yours!</span>
-              <h4>Batch Maker</h4>
-              <button>+</button>
-            </div>
-          </div>
-          <div className="col-md-2"></div>
-        </div>
-        <div className="col-md-7 col-md-push-1">
-            <Recipe collection={this.state.ingredientList}/>
-        </div>
+      <div>
+        <RecipeCard />
+        <IngredientList collection={this.state.ingredientList}/>
       </div>
     )
   }
 }
 
-class Recipe extends React.Component {
+class RecipeCard extends React.Component {
   render(){
     return (
-      <div className="recipe">
-        <h1>Basic info</h1>
-        <div className="recipe-listing">
-          <img src="" alt=""/>
-          <input className="recipe-name" type="text" placeholder="Recipe Name"/>
-          <input className="recipe-author" type="text" placeholder="By"/>
+      <div className="recipe-form">
+        <h1>Recipe Form</h1>
+        <div className="well">
+          <span>Makes</span><input type="number"/><span>servings</span><input className="btn" type="radio" value="US"/><input className="btn" type="radio" value="Metric"/><button>Adjust Recipe</button>
         </div>
         <ul></ul>
       </div>
@@ -51,7 +43,7 @@ class Recipe extends React.Component {
   }
 }
 
-class Ingredients extends React.Component {
+class IngredientList extends React.Component {
   render(){
     var recipeList = this.props.collection.map((recipe)=>{
       return(
@@ -67,5 +59,5 @@ class Ingredients extends React.Component {
 }
 
 module.exports = {
-  RecipeContainer
+  RecipeCardContainer
 }

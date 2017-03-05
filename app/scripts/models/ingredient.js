@@ -12,7 +12,7 @@ var Ingredient = Backbone.Model.extend({
 }
 })
 
-var IngredientsCollection = Backbone.Collection.extend({
+var IngredientCollection = Backbone.Collection.extend({
   model: Ingredient,
   url: function(){
     return parse.BASE_API_URL + '/classes/Baty';
@@ -24,5 +24,5 @@ var IngredientsCollection = Backbone.Collection.extend({
 
 module.exports = {
   Ingredient,
-  IngredientsCollection
+  IngredientCollection
 }

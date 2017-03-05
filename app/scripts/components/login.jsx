@@ -11,12 +11,12 @@ class LoginContainer extends React.Component {
   }
   login(creds){
     User.login(creds, function(user){
-      Backbone.history.navigate('recipe/', {trigger: true});
+      Backbone.history.navigate('main/', {trigger: true});
     });
   }
   createAccount(creds){
     User.signup(creds);
-    Backbone.history.navigate('recipe/', {trigger: true});
+    Backbone.history.navigate('main/', {trigger: true});
   }
   render(){
     return (
@@ -54,7 +54,6 @@ class LoginForm extends React.Component {
       this.props.action(this.state);
   }
   render(){
-    console.log('test', this.props.action);
     return(
       <form onSubmit={this.handleSubmit}>
           <div className="form-group">
@@ -74,11 +73,11 @@ class LoginForm extends React.Component {
 };
 
 class SignupForm extends LoginForm {
-  render(){
-    return(
-      <LoginForm action={this.props.action} />
-    )
-  }
+  // render(){
+  //   return(
+  //     <LoginForm action={this.props.action} />
+  //   )
+  // }
 }
 
 module.exports = {
