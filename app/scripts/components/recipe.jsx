@@ -1,10 +1,19 @@
 var React = require('react');
 var recipe = require('../models/recipe.js');
 var IngredientCollection = require('../models/ingredient.js').IngredientCollection;
+var RecipeModel = require('../models/recipe.js').Recipe;
+var RecipeCollection = require('../models/recipe.js').RecipeCollection;
 
 class RecipeContainer extends React.Component {
   constructor(props){
     super(props);
+    var currentRecipe = new RecipeModel();
+    var recipeCollection = new RecipeCollection();
+    recipeCollection.fetch().then(()=>{
+      currentRecipe = recipeCollection.findWhere({objectId: this.props.id});
+      this.setState({currentRecipe, recipeCollection});
+    })
+
     var ingredientList = new IngredientCollection();
 
     ingredientList.fetch().then(()=> {
@@ -67,5 +76,6 @@ class Ingredients extends React.Component {
 }
 
 module.exports = {
-  RecipeContainer
+  RecipeContainer,
+  Recipe
 }

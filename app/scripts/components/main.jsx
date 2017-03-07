@@ -8,18 +8,27 @@ class MainContainer extends React.Component {
   constructor(props){
     super(props);
     var recipeList = new RecipeCollection();
-    recipeList.add([
-      {name: 'cake', servings: '8', image: 'https://www.bbcgoodfood.com/sites/default/files/styles/category_retina/public/chocolate-avocado-cake.jpg?itok=E2eWE_Dx'},
-      {name: 'cookies', servings: '12', image: 'http://images.media-allrecipes.com/userphotos/250x250/00/69/35/693521.jpg'},
-      {name: 'donuts', servings: '12', image: 'https://duckdonuts.com/wp-content/uploads/2015/11/Dozen-Assorted-Donuts21.jpg'},
-      {name: 'biscuits', servings: '8', image: 'http://fusionchurch.net/wp-content/uploads/2014/07/buttermilk-biscuits-61.jpg'}
-    ])
     recipeList.fetch().then(()=> {
       this.setState({recipeList});
     });
+
+    this.addNewRecipe = this.addNewRecipe.bind(this);
+
     this.state = {
       recipeList
     }
+
+    // recipeList.get('ingredients').add([
+    //   {name: 'cake', servings: '8', image: 'https://www.bbcgoodfood.com/sites/default/files/styles/category_retina/public/chocolate-avocado-cake.jpg?itok=E2eWE_Dx'},
+    //   {name: 'cookies', servings: '12', image: 'http://images.media-allrecipes.com/userphotos/250x250/00/69/35/693521.jpg'},
+    //   {name: 'donuts', servings: '12', image: 'https://duckdonuts.com/wp-content/uploads/2015/11/Dozen-Assorted-Donuts21.jpg'},
+    //   {name: 'biscuits', servings: '8', image: 'http://fusionchurch.net/wp-content/uploads/2014/07/buttermilk-biscuits-61.jpg'}
+    // ])
+  }
+  addNewRecipe(recipe){
+    this.state.recipeList.create(recipe, {success: ()=>{
+      this.setState({recipeList: this.state.recipeList});
+    }})
   }
   render(){
     return (
@@ -46,11 +55,15 @@ class RecipeBoxContainer extends React.Component {
   render(){
     var recipeList = this.props.collection.map((recipe)=>{
       return(
-          <div key={recipe.get('objectId')} className="recipe">
-            <img src={recipe.get('image')} alt=""/>
+          <div key={recipe.get('objectId')} className="row recipe">
+            <div className="col-md-3">
+              <a href={'recipes/' + recipe.get('objectId')} className="thumbnail">
+                <img src={recipe.get('image')} alt=""/>
+              </a>
+            </div>
           </div>
       )
-    })
+    });
     return(
       <div className="col-md-3">
         {recipeList}

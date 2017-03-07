@@ -18,7 +18,7 @@ var Recipe = Backbone.Model.extend({
 var RecipeCollection = Backbone.Collection.extend({
   model: Recipe,
   url: function(){
-    return parse.BASE_API_URL + '/classes/Baty';
+    return parse.BASE_API_URL + '/Baty';
   },
   parse: function(data){
     return data.results;
