@@ -29,6 +29,9 @@ class MainContainer extends React.Component {
     this.state.recipeList.create(recipe, {success: ()=>{
       this.setState({recipeList: this.state.recipeList});
     }})
+  },
+  addButton(){
+    Backbone.navigate.history()
   }
   render(){
     return (
@@ -39,6 +42,7 @@ class MainContainer extends React.Component {
               <span>The kitchen is yours!</span>
               <h4>Batch Maker</h4>
               <button>+</button>
+              <input type="submit" className="btn btn-primary" value="Add Recipe"/>
             </div>
           </div>
           <div className="col-md-2"></div>
@@ -57,7 +61,7 @@ class RecipeBoxContainer extends React.Component {
       return(
           <div key={recipe.get('objectId')} className="row recipe">
             <div className="col-md-3">
-              <a href={'recipes/' + recipe.get('objectId')} className="thumbnail">
+              <a href={'recipes/' + recipe.get('objectId') + "/"} className="thumbnail">
                 <img src={recipe.get('image')} alt=""/>
               </a>
             </div>

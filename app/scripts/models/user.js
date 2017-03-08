@@ -17,12 +17,12 @@ var User = Backbone.Model.extend({
         callback(newUser);
       });
     },
-    signup: function(creds){
+    signup: function(creds, callback){
       var newUser = new User(creds);
       newUser.save().then(() => {
         User.store(newUser);
+        callback(newUser);
       });
-      return newUser;
     },
     store: function(user){
       localStorage.setItem('user', JSON.stringify(user));

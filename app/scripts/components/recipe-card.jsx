@@ -35,7 +35,7 @@ class RecipeCardContainer extends React.Component {
   render(){
     return (
       <div>
-        <RecipeCard recipe={this.state.reipce}/>
+        <RecipeCard recipe={this.state.recipe}/>
         <IngredientList collection={this.state.ingredientList}/>
       </div>
     )

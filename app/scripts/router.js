@@ -8,6 +8,7 @@ var LoginContainer = require('./components/login.jsx').LoginContainer;
 var RecipeContainer = require('./components/recipe.jsx').RecipeContainer;
 var MainContainer = require('./components/main.jsx').MainContainer;
 var RecipeCardContainer = require('./components/recipe-card.jsx').RecipeCardContainer;
+var RecipeForm = require('./components/recipe-form.jsx').RecipeForm;
 
 var User = require('./models/user').User;
 
@@ -16,12 +17,18 @@ var AppRouter = Backbone.Router.extend({
     '': 'login',
     'recipes/': 'recipes',
     'main/': 'main',
-    'recipes/:id': 'recipecard'
+    'recipes/:id/': 'recipecard',
+    'recipes/form/': 'recipeform'
   },
   initialize: function(){
+    if(User.current()){
+      var user = User.current();
+      parse.setup({sessionId: user.get('sessionToken'}));
+    }else{
     parse.setup({
       BASE_API_URL: 'https://tiny-parse-server.herokuapp.com'
     });
+    }
   },
   login: function(){
     ReactDOM.render(
@@ -44,6 +51,12 @@ var AppRouter = Backbone.Router.extend({
   recipecard: function(id){
     ReactDOM.render(
       React.createElement(RecipeAdjuster, {id: id}),
+      document.getElementById('app')
+    )
+  },
+  recipeform: function(id){
+    ReactDOM.render(
+      React.createElement(RecipeForm, {id: id}),
       document.getElementById('app')
     )
   }

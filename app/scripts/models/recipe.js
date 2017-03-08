@@ -11,7 +11,8 @@ var Recipe = Backbone.Model.extend({
     ingredients: new IngredientCollection(),
     image: 'https://unsplash.it/300/300'
   }
-}
+},
+urlRoot: 'https://tiny-parse-server.herokuapp.com/classes/Baty'
 })
 
 
